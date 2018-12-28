@@ -115,6 +115,13 @@ SynthmkIiAudioProcessor::SynthmkIiAudioProcessor()
 	tree.createAndAddParameter("gain2", "Gain", "gain", oscGainVal, 1, nullptr, nullptr);
 	tree.createAndAddParameter("gain3", "Gain", "gain", oscGainVal, 1, nullptr, nullptr);
 
+	NormalisableRange<float> distortionDriveVal(0, 1.f);
+	NormalisableRange<float> distortionRangeVal(0, 3000.f);
+	NormalisableRange<float> distortionBlendVal(0, 1.f);
+	tree.createAndAddParameter("drive", "Drive", "drive", distortionDriveVal, 0.5f, nullptr, nullptr);
+	tree.createAndAddParameter("range", "Range", "range", distortionRangeVal, 0.5f, nullptr, nullptr);
+	tree.createAndAddParameter("blend", "Blend", "blend", distortionBlendVal, 0, nullptr, nullptr);
+
 
 
 	synth1.clearVoices();
@@ -293,6 +300,10 @@ void SynthmkIiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 
 			oscVoice1->getPan(tree.getRawParameterValue("pan1"));
 
+			oscVoice1->getDistortionParam(tree.getRawParameterValue("drive"),
+										  tree.getRawParameterValue("range"),
+										  tree.getRawParameterValue("blend"));
+
 			
 		}
 
@@ -320,6 +331,10 @@ void SynthmkIiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 									  tree.getRawParameterValue("filterRes2"));
 
 			oscVoice2->getPan(tree.getRawParameterValue("pan2"));
+
+			oscVoice2->getDistortionParam(tree.getRawParameterValue("drive"),
+										  tree.getRawParameterValue("range"),
+										  tree.getRawParameterValue("blend"));
 		}
 
 	}
@@ -346,6 +361,10 @@ void SynthmkIiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 									  tree.getRawParameterValue("filterRes3"));
 
 			oscVoice3->getPan(tree.getRawParameterValue("pan3"));
+
+			oscVoice3->getDistortionParam(tree.getRawParameterValue("drive"),
+										  tree.getRawParameterValue("range"),
+										  tree.getRawParameterValue("blend"));
 		}
 
 	}

@@ -179,13 +179,13 @@ public:
 
 	float setPanLeft()
 	{
-		float p = (pi * (pan + 1) / 4);
+		float p = (float_Pi * (pan + 1) / 4);
 		return cos(p);
 	}
 
 	float setPanRight()
 	{
-		float p = (pi * (pan + 1) / 4);
+		float p = (float_Pi * (pan + 1) / 4);
 		return sin(p);
 	}
 
@@ -211,7 +211,7 @@ public:
 
 	double setOscEnvelope()
 	{
-		return oscEnv.adsr(setOscType(), oscEnv.trigger) * level;
+		return oscEnv.adsr(setDistortion(), oscEnv.trigger) * level;
 	}
 
 	//==============================================================================
@@ -268,6 +268,31 @@ public:
 		{
 			return setOscEnvelope();
 		}
+	}
+
+	//==============================================================================
+
+	void getDistortionParam(float* drive, float* range, float* blend)
+	{
+		driveVal = *drive;
+		rangeVal = *range;
+		blendVal = *blend;
+	}
+
+	//==============================================================================
+
+	double setDistortion()
+	{
+		double cleanSignal = setOscType();
+		double dirtySignal = setOscType();
+
+		dirtySignal *= driveVal * rangeVal;
+
+		dirtySignal = ((((2.f / float_Pi) * atan(dirtySignal) * blendVal) + (cleanSignal * (1.f - blendVal))) / 2);
+
+		return dirtySignal;
+
+
 	}
 
 	//==============================================================================
@@ -354,8 +379,13 @@ private:
 	float cutoff;
 	float res;
 
+	float driveVal;
+	float rangeVal;
+	float blendVal;
+	
+
 	double pan;
-	float pi = 3.141592653589793238462;
+	
 
 	maxiOsc osc1;
 	maxiEnv oscEnv;

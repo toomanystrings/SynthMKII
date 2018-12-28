@@ -6,6 +6,10 @@
   <MAINGROUP id="XRou3s" name="SynthmkII">
     <GROUP id="{D4F877E0-75DC-85E4-32BA-2ADEBB605A67}" name="Source">
       <GROUP id="{D33C9337-C49A-BCB4-203D-2F6910B033B8}" name="Gui Components">
+        <GROUP id="{A29EE9C2-84C6-A08D-4274-A11D5400EDE9}" name="Distortion">
+          <FILE id="GG659d" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
+          <FILE id="OYZjHK" name="Distortion.h" compile="0" resource="0" file="Source/Distortion.h"/>
+        </GROUP>
         <GROUP id="{A23FB1C2-5723-1E12-245B-A3A8493DF96F}" name="LookAndFeel">
           <FILE id="SLFnff" name="CustomLookAndFeel.h" compile="0" resource="0"
                 file="Source/CustomLookAndFeel.h"/>

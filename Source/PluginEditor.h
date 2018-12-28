@@ -18,6 +18,7 @@
 #include "Filter.h"
 #include "Mixer.h"
 #include "FilterEnvelope.h"
+#include "Distortion.h"
 
 
 //==============================================================================
@@ -49,6 +50,8 @@ private:
 	Mixer mixerGui;
 
 	FilterEnvelope filterEnvGui;
+
+	Distortion distortionGui;
 
 	
 
